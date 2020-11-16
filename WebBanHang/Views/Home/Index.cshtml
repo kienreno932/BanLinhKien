@@ -1,0 +1,147 @@
+﻿@model  IEnumerable<WebBanHang.Models.Product>
+
+@{
+    ViewBag.Title = "Home Page";
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+}
+
+
+
+
+<head>
+    <style>
+        .scrollbar {
+            background-color: #F5F5F5;
+            float: left;
+            height: 549px;
+            margin-bottom: 25px;
+            margin-left: 0px;
+            margin-top: 1px;
+            width: 1209px;
+            overflow-y: scroll;
+        }
+
+        .force-overflow {
+            min-height: 450px;
+        }
+
+        .card {
+            text-align: center;
+            width: 250px;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 4px 8px 0 #3343b7;
+            transition: 0.3s;
+        }
+
+        #margin-card {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<aside class="">
+    <section class="tintuc">
+        <iframe width="419px" height="250" src="https://www.youtube.com/embed/Uo8RfqPo064" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <h3> TIN TỨC MỚI NHẤT </h3>
+        <ul>
+            <li>
+                <a href="#" title=" PCAP ASUS APEX LEGENDS - Chiến mượt game HOT mà chỉ 11 triệu ">
+                    <img src="/Content/Images/left1.jpg"> <i class="fas fa-angle-double-right"></i>
+                    PCAP ASUS APEX LEGENDS - Chiến mượt game HOT mà chỉ 11 triệu
+                </a>
+            </li>
+
+            <li>
+                <a href="#" title=" Ghế ngồi chơi game giá 99 triệu ở Việt Nam ">
+                    <img src="/Content/Images/left2.jpg"> <i class="fas fa-angle-double-right"></i>
+                    Ghế ngồi chơi game giá 99 triệu ở Việt Nam
+                </a>
+            </li>
+
+            <li>
+                <a href="#" title=" Review GALAX RTX 2070 EX 1 Click Series ">
+                    <img src="/Content/Images/left3.jpg"> <i class="fas fa-angle-double-right"></i>
+                    Review GALAX RTX 2070 EX 1 Click Series
+                </a>
+            </li>
+
+           
+        </ul>
+    </section>
+
+    <div class="slide">
+        <div class="dieuhuong">
+            <i class="fas fa-angle-left" onclick="Back();"></i>
+            <i class="fas fa-angle-right" onclick="Next();"></i>
+        </div>
+
+        <div class="chuyen-slide">
+            <img src="/Content/Images/slider1.jpg" />
+            <img src="/Content/Images/slider2.jpg" />
+            <img src="/Content/Images/slider3.jpg" />
+            <img src="/Content/Images/slider4.jpg" />
+            <img src="/Content/Images/slider5.jpg" />
+            <img src="/Content/Images/slider6.jpg" />
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var KichThuoc = document.getElementsByClassName("slide")[0].clientWidth;
+        var ChuyenSlide = document.getElementsByClassName("chuyen-slide")[0];
+        var Img = ChuyenSlide.getElementsByTagName("img");
+        var Max = KichThuoc * Img.length;
+        Max -= KichThuoc;
+        var Chuyen = 0;
+        function Next() {
+            if (Chuyen < Max)
+                Chuyen += KichThuoc;
+            else
+                Chuyen = 0;
+            ChuyenSlide.style.marginLeft = '-' + Chuyen + 'px';
+        }
+
+        function Back() {
+            if (Chuyen == 0)
+                Chuyen = Max;
+            else
+                Chuyen -= KichThuoc;
+            ChuyenSlide.style.marginLeft = '-' + Chuyen + 'px';
+        }
+
+        setInterval(function () {
+            Next();
+        }, 4000)
+    </script>
+
+    <article class="center">
+        <h2> Sản phẩm mới nhất </h2>
+        <div class="scrollbar">
+            <div class=" row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-sm-5 col-md-5 col-lg-3" id="margin-card">
+                        <div class="card">
+
+                            <a><img src="@Url.Content(item.Images)" style="height:200px; width:200px" /></a>
+                            <img src="https://hanoicomputercdn.com/media/news/1701_hot.gif" class="hot" style=" height: 33px; margin-left: 142px; margin-top: -397px;" />
+                            <H4>@Html.DisplayFor(model => item.NameProduct)</H4>
+                            <p class="strike"> <strike> @Html.DisplayFor(model => item.UnitPrice) <sup>đ</sup></strike> </p>
+                            <p class="giatien">@Html.DisplayFor(model => item.UnitPrice)<sup><u>đ</u></sup> </p>
+                            <a class="btn btn-danger" href="/Product/Details/@item.IDProduct">
+                                Chi tiết
+                            </a>
+                            <a href="/ShoppingCart/AddToCart/@item.IDProduct"><img src="@Url.Content("~/Content/Images/cart.png")" style="height:40px; width:40px;" /></a>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+
+
+
+       
+    </article>
+   
+</aside>
